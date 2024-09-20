@@ -1,5 +1,7 @@
 # Enhancing Knowledge Distillation of Large Language Models through Efficient Multi-Modal Distribution Alignment
 
+## Training
+
 After setting up the environment, first configure the distributed training environment using the **accelerate** library. Use the following command to specify the number of GPUs and DeepSpeed settings.
 
 ```
