@@ -8,7 +8,6 @@ import torchsort
 from tqdm import tqdm
 import os
 import numpy as np
-from llama.modeling_llama import LlamaForCausalLM, LlamaConfig
 from datasets import load_dataset
 from torch.nn import CrossEntropyLoss
 import argparse
@@ -349,15 +348,15 @@ def distill():
     teacher_model_path = args.teacher_path
     student_model_path = args.student_path
 
-    teacher_config = LlamaConfig.from_pretrained(teacher_model_path)
-    teacher_model = LlamaForCausalLM.from_pretrained(teacher_model_path, torch_dtype=torch.bfloat16, config=teacher_config).to(device)
+    teacher_config = AutoConfig.from_pretrained(teacher_model_path)
+    teacher_model = AutoModelForCausalLM.from_pretrained(teacher_model_path, torch_dtype=torch.bfloat16, config=teacher_config).to(device)
 
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path)
 
 
     # load student
-    student_config = LlamaConfig.from_pretrained(student_model_path)
-    student_model = LlamaForCausalLM.from_pretrained(student_model_path, torch_dtype=torch.bfloat16, config=student_config).to(device)
+    student_config = AutoConfig.from_pretrained(student_model_path)
+    student_model = AutoModelForCausalLM.from_pretrained(student_model_path, torch_dtype=torch.bfloat16, config=student_config).to(device)
 
 
     optimizer = optim.AdamW(student_model.parameters(), lr=args.learning_rate)
