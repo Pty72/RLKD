@@ -14,7 +14,6 @@ from torch.nn import CrossEntropyLoss
 import transformers
 from typing import Optional, Dict, Sequence
 from sft_dataset import DataCollatorForSupervisedDataset, SupervisedDataset, DollyDataset
-from llama.modeling_llama import LlamaForCausalLM, LlamaConfig
 import argparse
 
 IGNORE_INDEX = -100
@@ -309,13 +308,13 @@ def distill():
 
     new_training = True
 
-    teacher_config = LlamaConfig.from_pretrained(teacher_model_path)
-    teacher_model = LlamaForCausalLM.from_pretrained(teacher_model_path, torch_dtype=torch.bfloat16, config=teacher_config).to(device)
+    teacher_config = AutoConfig.from_pretrained(teacher_model_path)
+    teacher_model = AutoModelForCausalLM.from_pretrained(teacher_model_path, torch_dtype=torch.bfloat16, config=teacher_config).to(device)
 
 
     # load student
-    student_config = LlamaConfig.from_pretrained(student_model_path)
-    student_model = LlamaForCausalLM.from_pretrained(student_model_path, config=student_config).to(device)
+    student_config = AutoConfig.from_pretrained(student_model_path)
+    student_model = AutoModelForCausalLM.from_pretrained(student_model_path, config=student_config).to(device)
 
     if new_training:
         tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path, padding_side="right", use_fast=False, model_max_length=max_length)
