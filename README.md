@@ -1,4 +1,4 @@
-# Enhancing Knowledge Distillation of Large Language Models through Efficient Multi-Modal Distribution Alignment
+# [COLING2025]Enhancing Knowledge Distillation of Large Language Models through Efficient Multi-Modal Distribution Alignment
 
 ## Training
 
